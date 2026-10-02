@@ -1198,6 +1198,34 @@ body.lightbox-open{overflow:hidden}
   max-height:none!important;
   object-fit:contain!important;
 }
+</style><style>
+/* desktop/tablet: keep route map and mini maps side-by-side consistently for DAY 1-4 */
+@media(min-width:701px) and (max-width:1050px){
+  #d1 .boardSide,#d2 .boardSide,#d3 .boardSide,#d4 .boardSide{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:12px!important;
+    align-items:start!important;
+  }
+  #d1 .routePanel,#d2 .routePanel,#d3 .routePanel,#d4 .routePanel,
+  #d1 .miniPanel,#d2 .miniPanel,#d3 .miniPanel,#d4 .miniPanel{
+    margin:0!important;
+    min-width:0!important;
+  }
+}
+@media(min-width:1051px){
+  #d1 .boardSide,#d2 .boardSide,#d3 .boardSide,#d4 .boardSide{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:0!important;
+  }
+}
+@media(max-width:700px){
+  #d1 .boardSide,#d2 .boardSide,#d3 .boardSide,#d4 .boardSide{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+  }
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt" id="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><button class="heroZoomHint" type="button" aria-label="배너 일러스트 크게 보기">🔍 크게 보기</button></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
