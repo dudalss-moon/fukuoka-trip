@@ -1150,6 +1150,45 @@ body.lightbox-open{overflow:hidden}
   font-size:.72rem;
   font-weight:950;
 }
+</style><style>
+/* canonical viewer: centered full-image fit is the 100% baseline */
+.imageLightboxInner{
+  position:absolute!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  max-width:none!important;
+  max-height:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  touch-action:none!important;
+}
+.imageLightboxImg{
+  position:static!important;
+  inset:auto!important;
+  left:auto!important;
+  top:auto!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:calc(100vw - 32px)!important;
+  max-height:calc(100vh - 32px)!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:translate(0,0) scale(1)!important;
+  transform-origin:center center!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  user-select:none!important;
+  -webkit-user-drag:none!important;
+}
+@media(max-width:700px){
+  .imageLightboxImg{
+    max-width:calc(100vw - 16px)!important;
+    max-height:calc(100vh - 16px)!important;
+  }
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt" id="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><button class="heroZoomHint" type="button" aria-label="배너 일러스트 크게 보기">🔍 크게 보기</button></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
@@ -1296,55 +1335,42 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
   const controls=box&&box.querySelector('.imageLightboxControls');
   const readout=document.getElementById('zoomReadout');
 
-  let fitScale=1;
-  let userZoom=1;
-  let panX=0, panY=0;
+  let zoom=1, panX=0, panY=0;
   let dragging=false, startX=0, startY=0, startPanX=0, startPanY=0;
   let pinchStartDist=0, pinchStartZoom=1;
 
   function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
   function updateReadout(){
-    if(readout) readout.textContent=Math.round(userZoom*100)+'%';
+    if(readout) readout.textContent=Math.round(zoom*100)+'%';
   }
   function applyTransform(){
-    big.style.transform='translate(-50%,-50%) translate('+panX+'px,'+panY+'px) scale('+(fitScale*userZoom)+')';
+    big.style.setProperty('transform','translate('+panX+'px,'+panY+'px) scale('+zoom+')','important');
     updateReadout();
   }
-  function computeFit(){
-    if(!big.naturalWidth||!big.naturalHeight) return;
-    const margin=window.innerWidth<=700?16:32;
-    const availableW=Math.max(100,window.innerWidth-margin*2);
-    const availableH=Math.max(100,window.innerHeight-margin*2);
-    fitScale=Math.min(availableW/big.naturalWidth, availableH/big.naturalHeight);
-  }
   function resetView(){
-    computeFit();
-    userZoom=1;
-    panX=0;
-    panY=0;
+    zoom=1; panX=0; panY=0;
     applyTransform();
   }
   function setZoom(next){
-    userZoom=clamp(next,.25,5);
-    if(userZoom<=1){panX=0;panY=0}
+    zoom=clamp(next,.25,5);
+    if(zoom===1){panX=0;panY=0}
     applyTransform();
   }
   function openLightbox(){
     if(!heroImg||!box||!big) return;
-    big.onload=resetView;
+    resetView();
     big.src=heroImg.currentSrc||heroImg.src;
     big.alt=heroImg.alt||'확대된 여행 일러스트';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
-    if(big.complete&&big.naturalWidth) resetView();
   }
   function closeLightbox(){
     if(!box) return;
     box.classList.remove('open');
     box.setAttribute('aria-hidden','true');
     document.body.classList.remove('lightbox-open');
-    userZoom=1;panX=0;panY=0;
+    resetView();
   }
 
   if(hero) hero.addEventListener('click',openLightbox);
@@ -1355,27 +1381,27 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
     e.stopPropagation();
     const b=e.target.closest('button');
     if(!b) return;
-    if(b.dataset.zoom==='in') setZoom(userZoom+.25);
-    if(b.dataset.zoom==='out') setZoom(userZoom-.25);
+    if(b.dataset.zoom==='in') setZoom(zoom+.25);
+    if(b.dataset.zoom==='out') setZoom(zoom-.25);
     if(b.dataset.zoom==='reset') resetView();
   });
 
   document.addEventListener('keydown',e=>{
     if(!box||!box.classList.contains('open')) return;
     if(e.key==='Escape') closeLightbox();
-    if(e.key==='+') setZoom(userZoom+.25);
-    if(e.key==='-') setZoom(userZoom-.25);
+    if(e.key==='+') setZoom(zoom+.25);
+    if(e.key==='-') setZoom(zoom-.25);
     if(e.key==='0') resetView();
   });
 
   viewport.addEventListener('wheel',e=>{
     if(!box.classList.contains('open')) return;
     e.preventDefault();
-    setZoom(userZoom+(e.deltaY<0?.15:-.15));
+    setZoom(zoom+(e.deltaY<0?.15:-.15));
   },{passive:false});
 
   viewport.addEventListener('pointerdown',e=>{
-    if(userZoom<=1) return;
+    if(zoom<=1) return;
     dragging=true;
     big.classList.add('dragging');
     startX=e.clientX;startY=e.clientY;
@@ -1397,7 +1423,7 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
       const dx=e.touches[0].clientX-e.touches[1].clientX;
       const dy=e.touches[0].clientY-e.touches[1].clientY;
       pinchStartDist=Math.hypot(dx,dy);
-      pinchStartZoom=userZoom;
+      pinchStartZoom=zoom;
     }
   },{passive:false});
   viewport.addEventListener('touchmove',e=>{
