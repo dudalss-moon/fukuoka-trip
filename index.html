@@ -173,6 +173,39 @@ footer{margin-bottom:0}
 </style><style id="dashboard-order-fix">
 .tripDashboard{grid-template-columns:repeat(7,minmax(0,1fr))}.tripDashboard .dayCards,.tripDashboard .toolCards{display:contents}.utilityPanels{width:100%;display:block;clear:both;margin:0 0 18px}.utilityPanels .utilityPanel{width:100%!important;max-width:none!important;grid-column:1/-1}.utilityPanels .utilityPanel.open{display:block!important}
 @media(max-width:1150px){.tripDashboard{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:700px){.tripDashboard{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:430px){.tripDashboard{grid-template-columns:1fr 1fr!important}}
+</style><style id="mobile-field-use-pass">
+/* Mobile field-use pass */
+@media(max-width:700px){
+  body{font-size:15px}
+  .scene{min-height:250px!important;max-height:330px;aspect-ratio:auto!important}
+  .dayHero{height:100%;object-fit:cover!important}
+  .status{font-size:.62rem!important}
+  .story{padding:8px 10px!important}.story h2{margin:1px 0!important}.story p{display:none!important}
+  .dashboardLabel{margin:10px 0 6px!important}
+  .tripDashboard{position:sticky;top:0;z-index:50;background:#f6f0e4ee;backdrop-filter:blur(10px);padding:6px 0 7px;margin:0 -1px 10px!important}
+  .tripDashboard .dayCard,.tripDashboard .toolCard{min-height:72px!important;padding-top:9px!important;padding-bottom:9px!important}
+  .tripDashboard .dayCard{padding-left:68px!important}.tripDashboard .dayCard:before{width:51px!important}
+  .tripDashboard strong,.tripDashboard b{font-size:.78rem!important}.tripDashboard small{font-size:.6rem!important}
+  .quickFacts{margin-top:5px!important}.legend{overflow-x:auto;flex-wrap:nowrap!important;padding-bottom:3px;scrollbar-width:none}.legend::-webkit-scrollbar{display:none}.legend span{white-space:nowrap}
+  .sectionRibbon{position:relative;z-index:1}
+  .timeline{padding-left:6px!important;padding-right:6px!important}.item{padding-left:32px!important}.timeline:before{left:17px!important}.item:before{left:11px!important}
+  .time{font-size:.65rem!important}
+  .title{font-size:.92rem!important}.desc{font-size:.74rem!important}
+  .maps{min-height:42px!important;padding:8px 10px!important;font-size:.72rem!important}
+  .mini iframe{height:145px!important;min-height:145px!important;pointer-events:none}
+  .mini{position:relative}.mini:after{content:"지도 열기 ↗";position:absolute;right:8px;bottom:8px;background:#fff;color:#26728d;border-radius:99px;padding:5px 8px;font-size:.62rem;font-weight:950;box-shadow:0 3px 9px #3455}
+  .boardSide{margin-top:4px}.routePanel,.miniPanel{border-radius:15px!important}.routeArt{min-height:230px!important}
+  .utilityPanels .utilityPanel{margin-top:5px}.allMap{height:300px!important}
+}
+@media(max-width:430px){
+  .scene{min-height:225px!important;max-height:280px}
+  .tripDashboard{grid-template-columns:1fr 1fr!important}
+  .tripDashboard .dayCard,.tripDashboard .toolCard{min-height:68px!important}
+  .card,.item:nth-child(odd) .card,.item:nth-child(even) .card{grid-template-columns:72px minmax(0,1fr)!important}
+  .card .mini{grid-column:1/3!important}.icon{min-height:76px!important}
+  .info{padding:8px!important}.desc{line-height:1.35!important}
+  .boardTitle{padding:9px 11px!important;min-height:50px!important}.boardTitle b{font-size:1.15rem!important}.boardTitle span{font-size:.65rem!important}
+}
 </style></head><body><main class="wrap"><section class="scene"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원에서 후쿠오카로!</h2><p>여행의 첫 장면. 인천공항을 향해 출발합니다.</p></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
