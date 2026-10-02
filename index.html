@@ -268,6 +268,66 @@ radial-gradient(circle at 82% 18%,#fff7 0 2%,transparent 3%);opacity:.75}
 .routeArt.route4 .routeMover{animation-name:mapmove4}
 @keyframes mapmove4{0%{left:8%;transform:rotate(-3deg)}70%{left:66%;transform:rotate(3deg)}100%{left:80%;transform:rotate(0)}}
 @media(max-width:700px){.card .icon:after{font-size:38px!important}.routeArt.route3,.routeArt.route4{min-height:270px}}
+</style><style>
+/* fix itinerary rows: remove oversized illustration tile */
+.card,.item:nth-child(odd) .card,.item:nth-child(even) .card{
+  grid-template-columns:minmax(0,1fr) 205px!important;
+  min-height:108px!important;
+  position:relative;
+  padding-left:0!important;
+}
+.card .icon{
+  position:absolute!important;
+  left:12px!important;
+  top:43px!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:var(--daySoft,#eef8fb)!important;
+  box-shadow:none!important;
+  display:grid!important;
+  place-items:center!important;
+  z-index:3!important;
+}
+.card .icon:before{display:none!important}
+.card .icon:after{
+  content:attr(data-emoji)!important;
+  font-size:25px!important;
+  position:static!important;
+  width:auto!important;height:auto!important;
+  background:none!important;box-shadow:none!important;
+  filter:none!important;
+}
+.card .info{
+  grid-column:1!important;
+  padding:12px 10px 10px 66px!important;
+  min-width:0!important;
+}
+.card .time{
+  position:static!important;
+  display:inline-block!important;
+  margin-bottom:3px!important;
+}
+.card .title,.card .desc{padding-left:0!important;overflow-wrap:anywhere}
+.card .mini{
+  grid-column:2!important;
+  grid-row:1!important;
+  margin:7px!important;
+  min-height:94px!important;
+}
+.card .mini iframe{min-height:94px!important}
+@media(max-width:700px){
+ .card,.item:nth-child(odd) .card,.item:nth-child(even) .card{
+   grid-template-columns:1fr!important;
+   padding-left:0!important;
+ }
+ .card .info{grid-column:1!important;padding:12px 10px 10px 62px!important}
+ .card .icon{left:10px!important;top:42px!important;width:40px!important;height:40px!important}
+ .card .mini{grid-column:1!important;grid-row:auto!important;margin:0 8px 8px!important}
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
