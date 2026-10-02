@@ -217,13 +217,16 @@ footer{margin-bottom:0}
 .deadlineCard{display:grid;grid-template-columns:auto 1fr;gap:10px 13px;align-items:center;margin:8px 0 13px;padding:12px 14px;background:linear-gradient(135deg,#fff8e8,#fffdf8);border:1px solid #f0d69b;border-radius:16px;box-shadow:0 5px 14px #8b6d3320}
 .deadlineCard>strong{font-size:.78rem;background:#263d4b;color:white;border-radius:999px;padding:7px 10px;white-space:nowrap}.deadlineCard>div{display:flex;gap:7px;flex-wrap:wrap}.deadlineCard span{font-size:.7rem;font-weight:900;background:white;border:1px solid #eadfc9;border-radius:999px;padding:6px 9px;white-space:nowrap}
 @media(max-width:700px){.deadlineCard{grid-template-columns:1fr;padding:9px 10px;margin:5px 0 9px}.deadlineCard>strong{justify-self:start;font-size:.67rem}.deadlineCard>div{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;scrollbar-width:none}.deadlineCard>div::-webkit-scrollbar{display:none}.deadlineCard span{font-size:.62rem}}
-</style><style id="hero-full-image-fit">
-/* Keep the complete DAY artwork visible in the large top banner */
-.scene{height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;background:#fffaf2}
-.scene .dayHero{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important;display:block!important}
+</style><style id="hero-ux-fix">
+/* Compact hero: preserve the whole artwork without obscuring it */
+.scene{height:auto!important;min-height:0!important;max-height:420px!important;aspect-ratio:auto!important;background:#fffaf2}
+.scene .dayHero{width:100%!important;height:auto!important;max-height:420px!important;object-fit:contain!important;object-position:center!important;display:block!important}
+.scene:before,.scene:after{display:none!important;content:none!important}
 @media(max-width:700px){
-  .scene{height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important}
-  .scene .dayHero{height:auto!important;object-fit:contain!important}
+  .scene{max-height:260px!important}
+  .scene .dayHero{max-height:260px!important}
+  .story{display:none!important}
+  .status{top:8px!important;right:8px!important}
 }
 </style></head><body><main class="wrap"><section class="scene"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원에서 후쿠오카로!</h2><p>여행의 첫 장면. 인천공항을 향해 출발합니다.</p></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
@@ -282,7 +285,7 @@ function makeRoute(id,day){document.getElementById(id).innerHTML=routes[day].map
 const data={1:d1,2:d2,4:d4};function select(day,i){const x=data[day][i];document.querySelectorAll('.card').forEach(c=>c.classList.remove('selected'));const card=document.querySelector(`.card[data-day="${day}"][data-i="${i}"]`);if(card)card.classList.add('selected');document.querySelectorAll('.roadmap button').forEach(b=>b.classList.toggle('hot',+b.dataset.day===day&&+b.dataset.i===i));story.innerHTML=`<b>DAY ${day} · ${x[1]}</b><h2>${x[5]}</h2><p>${x[6]}</p>`;story.classList.remove('pulse');void story.offsetWidth;story.classList.add('pulse');}
 document.addEventListener('click',e=>{const c=e.target.closest('.card[data-day],.roadmap button[data-day]');if(c)select(+c.dataset.day,+c.dataset.i)});
 const tabs=[...document.querySelectorAll('.tabs button')],days=[...document.querySelectorAll('.day')];function reveal(r){r.querySelectorAll('.item').forEach((e,i)=>setTimeout(()=>e.classList.add('show'),Math.min(i*55,650)))}tabs.forEach(b=>b.onclick=()=>{tabs.forEach(x=>x.classList.remove('active'));days.forEach(x=>x.classList.remove('active'));b.classList.add('active');let d=document.getElementById(b.dataset.day),n=+b.dataset.day.slice(1);d.classList.add('active');dayHero.src='assets/day'+n+'-family3-HQ.png';dayHero.alt='후쿠오카 가족여행 DAY '+n+' 일러스트';dayHero.classList.remove('heroSwap');void dayHero.offsetWidth;dayHero.classList.add('heroSwap');if(data[n])select(n,0);else story.innerHTML='<b>DAY 3 · 🌸</b><h2>FUKUOKA CITY DAY</h2><p>DAY 3 일정이 정해지면 이 장면도 함께 완성됩니다.</p>';reveal(d)});
-document.querySelectorAll('.dayCard').forEach(dc=>dc.onclick=()=>{document.querySelector(`.tabs button[data-day="${dc.dataset.go}"]`).click();document.querySelectorAll('.dayCard').forEach(x=>x.classList.toggle('on',x===dc));window.scrollTo({top:document.querySelector('.tabs').offsetTop-8,behavior:'smooth'})});reveal(document.getElementById('d1'));select(1,0);
+document.querySelectorAll('.dayCard').forEach(dc=>dc.onclick=()=>{document.querySelector(`.tabs button[data-day="${dc.dataset.go}"]`).click();document.querySelectorAll('.dayCard').forEach(x=>x.classList.toggle('on',x===dc))});reveal(document.getElementById('d1'));select(1,0);
 const start=new Date('2026-10-03T00:00:00+09:00'),end=new Date('2026-10-07T00:00:00+09:00'),now=new Date(),diff=Math.ceil((start-now)/86400000);let st='여행 준비 중',cd='D-'+Math.max(diff,0);if(now>=start&&now<end){st='후쿠오카 여행 중 ✨';cd='ENJOY!'}if(now>=end){st='여행 완료';cd='またね 🇯🇵'}tripStatus.textContent=st;countdown.textContent=cd;
 </script><script>
 function openUtil(id){document.querySelectorAll('.utilityPanel').forEach(x=>x.classList.remove('open'));document.getElementById(id).classList.add('open');document.getElementById(id).scrollIntoView({behavior:'smooth',block:'center'})}
