@@ -931,6 +931,13 @@ html.kakao-inapp #mapPanel .kakao-map-fallback{
   75%{left:64%;top:51%;transform:rotate(-4deg) scaleX(-1)}
   100%{left:80%;top:49%;transform:rotate(0deg) scaleX(-1)}
 }
+</style><style>
+/* keep page position stable when utility panels toggle */
+.tripDashboard,
+.utilityPanels,
+.utilityPanel{
+  overflow-anchor:none;
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
@@ -992,46 +999,27 @@ const heroCopy={1:['DAY 1 · ✈️ ARRIVAL','수원 → 후쿠오카','ICN → 
 document.querySelectorAll('.dayCard').forEach(dc=>dc.onclick=()=>{document.querySelector(`.tabs button[data-day="${dc.dataset.go}"]`).click();document.querySelectorAll('.dayCard').forEach(x=>x.classList.toggle('on',x===dc))});reveal(document.getElementById('d1'));select(1,0);
 const start=new Date('2026-10-03T00:00:00+09:00'),end=new Date('2026-10-07T00:00:00+09:00'),now=new Date(),diff=Math.ceil((start-now)/86400000);let st='여행 준비 중',cd='D-'+Math.max(diff,0);if(now>=start&&now<end){st='후쿠오카 여행 중 ✨';cd='ENJOY!'}if(now>=end){st='여행 완료';cd='またね 🇯🇵'}tripStatus.textContent=st;countdown.textContent=cd;
 </script><script>
-let utilReturnScrollY=null;
 let utilOpenId=null;
-
-function restoreUtilScroll(){
-  if(utilReturnScrollY===null) return;
-  const y=utilReturnScrollY;
-  utilReturnScrollY=null;
-  utilOpenId=null;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    window.scrollTo({top:y,left:0,behavior:'auto'});
-  }));
-}
 
 function openUtil(id){
   const panel=document.getElementById(id);
   const wasOpen=panel.classList.contains('open');
 
+  document.querySelectorAll('.utilityPanel').forEach(x=>x.classList.remove('open'));
+
   if(wasOpen){
-    panel.classList.remove('open');
-    restoreUtilScroll();
+    utilOpenId=null;
     return;
   }
 
-  if(utilOpenId===null){
-    utilReturnScrollY=window.scrollY;
-  }
-
-  document.querySelectorAll('.utilityPanel').forEach(x=>x.classList.remove('open'));
   panel.classList.add('open');
   utilOpenId=id;
-
-  requestAnimationFrame(()=>{
-    panel.scrollIntoView({behavior:'smooth',block:'start'});
-  });
 }
 
 function closeUtil(btn){
   const panel=btn.closest('.utilityPanel');
   if(panel) panel.classList.remove('open');
-  restoreUtilScroll();
+  utilOpenId=null;
 }
 const packing=['여권','항공권/예약정보','엔화/카드','휴대폰','충전기','보조배터리','상비약','세면도구','우산','렌터카 준비','운전면허 관련 서류','아들 준비물'];
 const cg=document.getElementById('checkGrid');if(cg){cg.innerHTML=packing.map((x,i)=>'<label class="checkItem"><input type="checkbox" data-c="'+i+'"> '+x+'</label>').join('');cg.querySelectorAll('input').forEach(el=>{el.checked=localStorage.getItem('fukuoka-check-'+el.dataset.c)==='1';el.onchange=()=>localStorage.setItem('fukuoka-check-'+el.dataset.c,el.checked?'1':'0')})}
