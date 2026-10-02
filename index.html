@@ -938,7 +938,77 @@ html.kakao-inapp #mapPanel .kakao-map-fallback{
 .utilityPanel{
   overflow-anchor:none;
 }
-</style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"></div></section>
+</style><style>
+/* hero illustration lightbox */
+.heroArt{cursor:zoom-in;position:relative}
+.heroZoomHint{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  z-index:7;
+  border:0;
+  border-radius:999px;
+  padding:7px 10px;
+  background:rgba(255,255,255,.84);
+  color:#24465d;
+  font-size:.74rem;
+  font-weight:950;
+  box-shadow:0 4px 12px rgba(30,60,80,.18);
+  backdrop-filter:blur(3px);
+  cursor:zoom-in;
+}
+.imageLightbox{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(10,22,32,.82);
+  backdrop-filter:blur(5px);
+}
+.imageLightbox.open{display:flex}
+.imageLightboxInner{
+  max-width:min(96vw,1600px);
+  max-height:92vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.imageLightboxImg{
+  max-width:100%;
+  max-height:92vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:16px;
+  box-shadow:0 18px 55px rgba(0,0,0,.42);
+}
+.imageLightboxClose{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:10001;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.92);
+  color:#17324a;
+  font-size:1.1rem;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+}
+body.lightbox-open{overflow:hidden}
+@media(max-width:700px){
+  .heroZoomHint{right:8px;bottom:8px;padding:6px 8px;font-size:.68rem}
+  .imageLightbox{padding:12px}
+  .imageLightboxImg{max-height:88vh;border-radius:12px}
+  .imageLightboxClose{top:10px;right:10px;width:38px;height:38px}
+}
+</style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt" id="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><button class="heroZoomHint" type="button" aria-label="배너 일러스트 크게 보기">🔍 크게 보기</button></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
 <div class="dayCard on" data-go="d1"><strong>✈️ DAY 1</strong><small>출발 · 후쿠오카 도착 · 하카타 야경</small></div>
@@ -957,7 +1027,12 @@ html.kakao-inapp #mapPanel .kakao-map-fallback{
 <section id="d1" class="day active" data-trip="1"><div class="deadlineCard"><strong>⏰ DAY 1 마지노선</strong><div><span>13:30 인천공항 T2</span><span>16:25 OZ9871 출발</span><span>19:40 모츠나베</span><span>22:30 숙소 복귀</span></div></div><div class="quickFacts"><div class="fact"><b>✈️ FLIGHT</b><small>16:25 ICN → 17:55 FUK</small></div><div class="fact"><b>🏨 BASE</b><small>GRAND BASE Hakata Premium</small></div><div class="fact"><b>🌙 NIGHT</b><small>모츠나베 · 캐널시티 · 나카스</small></div></div><div class="legend"><span>🔵 이동</span><span>🟠 식사</span><span>🟢 관광</span><span>🟣 숙소</span></div><div class="sectionRibbon">✈️ ARRIVAL DAY · 인천에서 후쿠오카, 그리고 하카타의 첫날 밤</div><div class="board"><div class="boardMain"><div class="boardTitle"><b>DAY 1</b><span>10월 3일 (토) · 드디어 떠나는 후쿠오카!</span></div><div id="tl1"></div></div><aside class="boardSide"><div class="routePanel"><div class="panelHead">DAY 1 주요 이동 경로</div><div class="routeArt route1"><div class="routeMap"><span class="mapLandmark lm1">🏙️</span><span class="mapLandmark lm2">🌳</span><span class="mapLandmark lm3">⛰️</span><span class="mapLandmark lm4">🌊</span><span class="mapRoad r1"></span><span class="mapRoad r2"></span></div><div class="routePath"></div><div class="routeMover">✈️</div><div class="routeStops"><div class="pin a"><strong>①</strong><small>11:30</small></div><div class="pin b"><strong>②</strong><small>13:30</small></div><div class="pin c"><strong>③</strong><small>17:55</small></div></div></div><div class="routeSummary"><div class="routeStep"><i>🚗</i><b>수원 → 인천공항 T2<small>자가용 이동 · 단기주차장 3F</small></b><em>11:30</em></div><div class="routeStep"><i>✈️</i><b>ICN → FUK<small>OZ9871 · 약 1시간 30분</small></b><em>16:25</em></div><div class="routeStep"><i>🚕</i><b>후쿠오카공항 → 숙소<small>입국 후 Uber 이동</small></b><em>18:40</em></div></div></div><div class="miniPanel"><div class="panelHead">주요 장소 미니 지도</div><div class="miniGrid" id="mini1"></div></div></aside></div><div class="roadmap" id="route1"></div></section>
 <section id="d2" class="day" data-trip="2"><div class="deadlineCard"><strong>⏰ DAY 2 마지노선</strong><div><span>09:30 유후인 출발</span><span>14:55 Safari로 출발</span><span>16:00 전 Safari 입장</span><span>19:10 하레루야</span></div></div><div class="quickFacts"><div class="fact"><b>🚙 DRIVE</b><small>하카타 → 유후인 → 벳푸</small></div><div class="fact"><b>🦁 TARGET</b><small>Safari 15:30 · 16시 전 입장</small></div><div class="fact"><b>🌙 RETURN</b><small>19:10 야키토리 하레루야</small></div></div><div class="legend"><span>🔵 이동</span><span>🟠 식사</span><span>🟢 관광</span><span>🟣 숙소</span></div><div class="safari-alert">⏰ 핵심 미션 · 아프리칸 사파리 16:00 전 입장 목표! 지연되면 벳푸 지옥 관람을 1곳으로 줄입니다.</div><div class="sectionRibbon">🚙 ROAD TRIP · 유후인과 벳푸를 지나 아프리칸 사파리까지</div><div class="board"><div class="boardMain"><div class="boardTitle"><b>DAY 2</b><span>10월 4일 (일) · 유후인 → 벳푸 → 사파리 로드트립</span></div><div id="tl2"></div></div><aside class="boardSide"><div class="routePanel"><div class="panelHead">DAY 2 주요 이동 경로</div><div class="routeArt day2"><div class="routeMap"><span class="mapLandmark lm1">🏙️</span><span class="mapLandmark lm2">🌳</span><span class="mapLandmark lm3">⛰️</span><span class="mapLandmark lm4">🌊</span><span class="mapRoad r1"></span><span class="mapRoad r2"></span></div><div class="routePath"></div><div class="routeMover">🚙</div><div class="routeStops"><div class="pin a"><strong>①</strong><small>09:30</small></div><div class="pin b"><strong>②</strong><small>11:20</small></div><div class="pin c"><strong>③</strong><small>14:05</small></div><div class="pin d"><strong>④</strong><small>15:30</small></div></div></div><div class="routeSummary"><div class="routeStep"><i>🚙</i><b>하카타 → 유후인<small>가족 픽업 후 로드트립 시작</small></b><em>09:30</em></div><div class="routeStep"><i>⛰️</i><b>유후인 → 벳푸<small>사기리다이 경유</small></b><em>13:30</em></div><div class="routeStep"><i>🦁</i><b>벳푸 → Safari<small>입장시간 우선</small></b><em>14:55</em></div><div class="routeStep"><i>🌙</i><b>Safari → 하카타<small>저녁 식사 전 복귀</small></b><em>16:30</em></div></div></div><div class="miniPanel"><div class="panelHead">주요 장소 미니 지도</div><div class="miniGrid" id="mini2"></div></div></aside></div><div class="roadmap" id="route2"></div></section>
 <section id="d3" class="day" data-trip="3"><div class="deadlineCard"><strong>⏰ DAY 3 마지노선</strong><div><span>09:30 하카타 출발</span><span>13:30 히타 출발</span><span>16:30 텐진 출발</span><span>17:30 주차 완료</span><span>18:00 원갈비</span></div></div><div class="quickFacts"><div class="fact"><b>🚙 DRIVE</b><small>09:30 하카타 → 히타</small></div><div class="fact"><b>🛍️ SHOPPING</b><small>미나텐진 · LOFT</small></div><div class="fact"><b>🥩 DINNER</b><small>18:00 친구 가족과 원갈비</small></div></div><div class="legend"><span>🔵 이동</span><span>🟠 식사</span><span>🟢 관광</span><span>🛍️ 쇼핑</span></div><div class="safari-alert">⏰ DAY 3 고정 일정 · 17:00~17:30 숙소 근처 주차 완료 → 도보 이동 → 18:00 원갈비. 히타가 늦어지면 텐진 쇼핑 시간을 먼저 줄입니다.<br>🍜 점심 Plan A: 소후렌 총본점(히타 야키소바) · Plan B: 센야(히타마부시). 대기시간 때문에 13:30 출발선을 넘기지 않는 것이 우선입니다.</div><div class="sectionRibbon">🌿 HITA & TENJIN · 히타 산책과 점심, 텐진 쇼핑 후 친구 가족과 저녁</div><div class="board"><div class="boardMain"><div class="boardTitle"><b>DAY 3</b><span>10월 5일 (월) · 히타 → 텐진 → 나카스</span></div><div id="tl3"></div></div><aside class="boardSide"><div class="routePanel"><div class="panelHead">DAY 3 주요 이동 경로</div><div class="routeArt route3"><div class="routeMap"><span class="mapLandmark lm1">🏙️</span><span class="mapLandmark lm2">🌳</span><span class="mapLandmark lm3">⛰️</span><span class="mapLandmark lm4">🌊</span><span class="mapRoad r1"></span><span class="mapRoad r2"></span></div><div class="routePath"></div><div class="routeMover">🚙</div><div class="routeStops"><div class="pin a"><strong>①</strong><small>09:30</small></div><div class="pin b"><strong>②</strong><small>11:00</small></div><div class="pin c"><strong>③</strong><small>15:00</small></div><div class="pin d"><strong>④</strong><small>18:00</small></div></div></div><div class="routeSummary"><div class="routeStep"><i>🚙</i><b>하카타 → 히타<small>09:30 출발</small></b><em>AM</em></div><div class="routeStep"><i>🛍️</i><b>히타 → 미나텐진<small>LOFT 중심 쇼핑</small></b><em>PM</em></div><div class="routeStep"><i>🅿️</i><b>텐진 → 숙소<small>17:00~17:30 주차 완료</small></b><em>17:30</em></div><div class="routeStep"><i>🥩</i><b>숙소 → 원갈비<small>친구 가족과 저녁</small></b><em>18:00</em></div></div><div class="miniPanel"><div class="panelHead">주요 장소 미니 지도</div><div class="miniGrid" id="mini3"></div></div></aside></div></section>
-<section id="d4" class="day"><div class="deadlineCard"><strong>⏰ DAY 4 공통 마지노선</strong><div><span>A안 09:00 체크아웃</span><span>A안 12:00 이토시마 출발</span><span>B안 10:00 체크아웃</span><span>14:00 반납 목표</span><span>14:25 반납 완료</span><span>16:25 OZ133</span></div></div><header class="dayhead"><h2>DAY 4 · SEE YOU FUKUOKA ✈️</h2></header><div class="returnNote">🌊 <b>A안 · 이토시마</b> — 09:00 조기 체크아웃 → 후타미가우라 → 12:00 전후 출발. &nbsp; 🏖️ <b>B안 · 모모치</b> — 10:00 정상 체크아웃 → 시사이드 모모치 → 점심 → 공항권 이동. 두 플랜 모두 14:00 반납 목표 / 14:25 이전 반납 완료가 공통 기준입니다.</div><div class="board"><div class="boardMain"><div class="boardTitle"><b>DAY 4</b><span>10월 6일 (화) · 이토시마 / 모모치 → 렌터카 반납 → FUK</span></div><div id="tl4"></div></div><aside class="boardSide"><div class="routePanel"><div class="panelHead">DAY 4 주요 이동 경로</div><div class="routeArt route4"><div class="routeMap"><span class="mapLandmark lm1">🏙️</span><span class="mapLandmark lm2">🌳</span><span class="mapLandmark lm3">⛰️</span><span class="mapLandmark lm4">🌊</span><span class="mapRoad r1"></span><span class="mapRoad r2"></span></div><div class="routePath branchA"></div><div class="routePath branchB"></div><div class="routePath commonPath"></div><div class="routeMover carA">🚙</div><div class="routeMover carB">🚙</div><div class="routeStops"><div class="pin a common"><strong>①</strong><small>A 09:00 / B 10:00</small></div><div class="pin b planA"><strong>A②</strong><small>10:00</small></div><div class="pin c planB"><strong>B②</strong><small>10:30</small></div><div class="pin d common"><strong>③</strong><small>14:00</small></div><div class="pin e common"><strong>④</strong><small>16:25</small></div></div></div><div class="routeSummary"><div class="routeStep"><i>🌊</i><b>A안 · 숙소 → 이토시마<small>후타미가우라 · 카페/브런치</small></b><em>09:00</em></div><div class="routeStep"><i>🏖️</i><b>B안 · 숙소 → 모모치<small>시사이드 모모치 · 마리존</small></b><em>10:00</em></div><div class="routeStep"><i>⛽</i><b>관광지 → 주유 → 렌터카 반납<small>AVIS/Budget 후쿠오카공항점 · 14:00 목표</small></b><em>14:00</em></div><div class="routeStep"><i>✈️</i><b>렌터카 반납 → FUK → ICN<small>14:25 반납 완료 · OZ133 귀국</small></b><em>16:25</em></div></div><div class="miniPanel"><div class="panelHead">주요 장소 미니 지도</div><div class="miniGrid" id="mini4"></div></div></aside></div></section><footer>FUKUOKA FAMILY TRIP · OCT 03—06, 2026 · 👨‍👩‍👦 FAMILY OF 3</footer></main>
+<section id="d4" class="day"><div class="deadlineCard"><strong>⏰ DAY 4 공통 마지노선</strong><div><span>A안 09:00 체크아웃</span><span>A안 12:00 이토시마 출발</span><span>B안 10:00 체크아웃</span><span>14:00 반납 목표</span><span>14:25 반납 완료</span><span>16:25 OZ133</span></div></div><header class="dayhead"><h2>DAY 4 · SEE YOU FUKUOKA ✈️</h2></header><div class="returnNote">🌊 <b>A안 · 이토시마</b> — 09:00 조기 체크아웃 → 후타미가우라 → 12:00 전후 출발. &nbsp; 🏖️ <b>B안 · 모모치</b> — 10:00 정상 체크아웃 → 시사이드 모모치 → 점심 → 공항권 이동. 두 플랜 모두 14:00 반납 목표 / 14:25 이전 반납 완료가 공통 기준입니다.</div><div class="board"><div class="boardMain"><div class="boardTitle"><b>DAY 4</b><span>10월 6일 (화) · 이토시마 / 모모치 → 렌터카 반납 → FUK</span></div><div id="tl4"></div></div><aside class="boardSide"><div class="routePanel"><div class="panelHead">DAY 4 주요 이동 경로</div><div class="routeArt route4"><div class="routeMap"><span class="mapLandmark lm1">🏙️</span><span class="mapLandmark lm2">🌳</span><span class="mapLandmark lm3">⛰️</span><span class="mapLandmark lm4">🌊</span><span class="mapRoad r1"></span><span class="mapRoad r2"></span></div><div class="routePath branchA"></div><div class="routePath branchB"></div><div class="routePath commonPath"></div><div class="routeMover carA">🚙</div><div class="routeMover carB">🚙</div><div class="routeStops"><div class="pin a common"><strong>①</strong><small>A 09:00 / B 10:00</small></div><div class="pin b planA"><strong>A②</strong><small>10:00</small></div><div class="pin c planB"><strong>B②</strong><small>10:30</small></div><div class="pin d common"><strong>③</strong><small>14:00</small></div><div class="pin e common"><strong>④</strong><small>16:25</small></div></div></div><div class="routeSummary"><div class="routeStep"><i>🌊</i><b>A안 · 숙소 → 이토시마<small>후타미가우라 · 카페/브런치</small></b><em>09:00</em></div><div class="routeStep"><i>🏖️</i><b>B안 · 숙소 → 모모치<small>시사이드 모모치 · 마리존</small></b><em>10:00</em></div><div class="routeStep"><i>⛽</i><b>관광지 → 주유 → 렌터카 반납<small>AVIS/Budget 후쿠오카공항점 · 14:00 목표</small></b><em>14:00</em></div><div class="routeStep"><i>✈️</i><b>렌터카 반납 → FUK → ICN<small>14:25 반납 완료 · OZ133 귀국</small></b><em>16:25</em></div></div><div class="miniPanel"><div class="panelHead">주요 장소 미니 지도</div><div class="miniGrid" id="mini4"></div></div></aside></div></section><footer>FUKUOKA FAMILY TRIP · OCT 03—06, 2026 · 👨‍👩‍👦 FAMILY OF 3</footer></main><div class="imageLightbox" id="imageLightbox" aria-hidden="true">
+  <button class="imageLightboxClose" type="button" aria-label="닫기">✕</button>
+  <div class="imageLightboxInner">
+    <img id="imageLightboxImg" src="" alt="확대된 여행 일러스트">
+  </div>
+</div>
 <script>
 const q=s=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s),emb=s=>'https://www.google.com/maps?q='+encodeURIComponent(s)+'&output=embed';
 const d1=[
@@ -1061,5 +1136,33 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wireFallbacks);
   else wireFallbacks();
+})();
+</script><script>
+(function(){
+  const hero=document.getElementById('heroArt');
+  const heroImg=document.getElementById('dayHero');
+  const box=document.getElementById('imageLightbox');
+  const big=document.getElementById('imageLightboxImg');
+  const closeBtn=box&&box.querySelector('.imageLightboxClose');
+
+  function openLightbox(){
+    if(!heroImg||!box||!big) return;
+    big.src=heroImg.src;
+    big.alt=heroImg.alt||'확대된 여행 일러스트';
+    box.classList.add('open');
+    box.setAttribute('aria-hidden','false');
+    document.body.classList.add('lightbox-open');
+  }
+  function closeLightbox(){
+    if(!box) return;
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lightbox-open');
+  }
+
+  if(hero) hero.addEventListener('click',openLightbox);
+  if(closeBtn) closeBtn.addEventListener('click',e=>{e.stopPropagation();closeLightbox()});
+  if(box) box.addEventListener('click',e=>{if(e.target===box) closeLightbox()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&box&&box.classList.contains('open')) closeLightbox()});
 })();
 </script></body></html>
