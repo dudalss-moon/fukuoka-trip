@@ -1189,6 +1189,15 @@ body.lightbox-open{overflow:hidden}
     max-height:calc(100vh - 16px)!important;
   }
 }
+</style><style>
+/* exact screen-fit baseline dimensions are set by JS */
+.imageLightboxImg{
+  width:auto!important;
+  height:auto!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 한눈에 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt" id="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"><button class="heroZoomHint" type="button" aria-label="배너 일러스트 크게 보기">🔍 크게 보기</button></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
@@ -1348,7 +1357,28 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
     updateReadout();
   }
   function resetView(){
-    zoom=1; panX=0; panY=0;
+    if(!big.naturalWidth||!big.naturalHeight) return;
+    const pad=window.innerWidth<=700?16:32;
+    const vw=Math.max(100,window.innerWidth-pad*2);
+    const vh=Math.max(100,window.innerHeight-pad*2);
+    const imageRatio=big.naturalWidth/big.naturalHeight;
+    const viewportRatio=vw/vh;
+
+    let fitW,fitH;
+    if(imageRatio>=viewportRatio){
+      fitW=vw;
+      fitH=fitW/imageRatio;
+    }else{
+      fitH=vh;
+      fitW=fitH*imageRatio;
+    }
+
+    big.style.setProperty('width',fitW+'px','important');
+    big.style.setProperty('height',fitH+'px','important');
+
+    zoom=1;
+    panX=0;
+    panY=0;
     applyTransform();
   }
   function setZoom(next){
@@ -1358,12 +1388,13 @@ const _openUtil=window.openUtil;if(_openUtil)window.openUtil=function(id){_openU
   }
   function openLightbox(){
     if(!heroImg||!box||!big) return;
-    resetView();
+    big.onload=resetView;
     big.src=heroImg.currentSrc||heroImg.src;
     big.alt=heroImg.alt||'확대된 여행 일러스트';
     box.classList.add('open');
     box.setAttribute('aria-hidden','false');
     document.body.classList.add('lightbox-open');
+    if(big.complete&&big.naturalWidth) resetView();
   }
   function closeLightbox(){
     if(!box) return;
