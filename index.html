@@ -838,6 +838,68 @@ html.kakao-inapp .kakao-map-fallback a{
 html.kakao-inapp #mapPanel .kakao-map-fallback{
   min-height:140px;
 }
+</style><style>
+/* center markers above artwork labels + increase transparency */
+.routeArt .pin{
+  background:rgba(255,255,255,.58)!important;
+  border-color:rgba(255,255,255,.72)!important;
+  box-shadow:0 2px 6px rgba(20,50,70,.12)!important;
+  backdrop-filter:blur(1.5px)!important;
+  opacity:.94!important;
+}
+.routeArt .pin strong{
+  opacity:.92!important;
+}
+.routeArt .pin small{
+  color:rgba(39,72,94,.88)!important;
+}
+
+/* DAY 1 */
+.routeArt.route1 .pin.a{left:10%!important;top:17%!important;transform:translateX(-50%)!important}
+.routeArt.route1 .pin.b{left:31%!important;top:5%!important;transform:translateX(-50%)!important}
+.routeArt.route1 .pin.c{left:86%!important;top:5%!important;right:auto!important;transform:translateX(-50%)!important}
+
+/* DAY 2 */
+.routeArt.day2 .pin.a{left:11%!important;top:16%!important;transform:translateX(-50%)!important}
+.routeArt.day2 .pin.b{left:38%!important;top:14%!important;transform:translateX(-50%)!important}
+.routeArt.day2 .pin.c{left:66%!important;top:25%!important;transform:translateX(-50%)!important}
+.routeArt.day2 .pin.d{left:90%!important;top:39%!important;right:auto!important;transform:translateX(-50%)!important}
+
+/* DAY 3 */
+.routeArt.route3 .pin.a{left:10%!important;top:15%!important;transform:translateX(-50%)!important}
+.routeArt.route3 .pin.b{left:36%!important;top:12%!important;transform:translateX(-50%)!important}
+.routeArt.route3 .pin.c{left:73%!important;top:31%!important;transform:translateX(-50%)!important}
+.routeArt.route3 .pin.d{left:90%!important;bottom:24%!important;right:auto!important;transform:translateX(-50%)!important}
+
+/* DAY 4 */
+.routeArt.route4 .pin.a{left:10%!important;top:18%!important;transform:translateX(-50%)!important}
+.routeArt.route4 .pin.b{left:41%!important;top:2%!important;transform:translateX(-50%)!important}
+.routeArt.route4 .pin.c{left:42%!important;top:49%!important;transform:translateX(-50%)!important}
+.routeArt.route4 .pin.d{left:70%!important;top:28%!important;transform:translateX(-50%)!important}
+.routeArt.route4 .pin.e{left:91%!important;top:22%!important;right:auto!important;transform:translateX(-50%)!important}
+
+@media(max-width:700px){
+  .routeArt .pin{
+    background:rgba(255,255,255,.52)!important;
+    border-color:rgba(255,255,255,.66)!important;
+  }
+  .routeArt.route1 .pin.a{left:9%!important}
+  .routeArt.route1 .pin.b{left:30%!important}
+  .routeArt.route1 .pin.c{left:85%!important}
+  .routeArt.day2 .pin.a{left:10%!important}
+  .routeArt.day2 .pin.b{left:37%!important}
+  .routeArt.day2 .pin.c{left:65%!important}
+  .routeArt.day2 .pin.d{left:89%!important}
+  .routeArt.route3 .pin.a{left:9%!important}
+  .routeArt.route3 .pin.b{left:35%!important}
+  .routeArt.route3 .pin.c{left:72%!important}
+  .routeArt.route3 .pin.d{left:89%!important}
+  .routeArt.route4 .pin.a{left:9%!important}
+  .routeArt.route4 .pin.b{left:40%!important}
+  .routeArt.route4 .pin.c{left:41%!important}
+  .routeArt.route4 .pin.d{left:69%!important}
+  .routeArt.route4 .pin.e{left:90%!important}
+}
 </style></head><body><main class="wrap"><section class="scene"><div class="heroInfo"><div class="heroBrand">FUKUOKA<small>🇯🇵 FAMILY TRIP</small></div><div class="heroDate">2026.10.03 — 10.06<br><span>👨‍👩‍👦 FAMILY OF 3</span></div><a class="summaryLink" href="summary.html">🗺️ 전체 일정 요약 보기</a><div class="status"><strong id="tripStatus">여행 준비 중</strong> · <span id="countdown"></span></div><div class="story" id="story"><b>DAY 1 · START</b><h2>수원 → 후쿠오카</h2><p>ICN → FUK · 하카타 첫날 밤</p></div></div><div class="heroArt"><img id="dayHero" class="dayHero" src="assets/day1-family3-HQ.png" alt="후쿠오카 가족여행 DAY 1 일러스트"></div></section>
 <section class="refIntro"><div><h1>FUKUOKA <small>🇯🇵 FAMILY TRIP</small></h1><p>2026.10.03 (Sat) – 10.06 (Tue) · ✈️ INCHEON → FUKUOKA · 우리 가족 3명의 가을 여행</p></div><div class="familyBadge">👨 👩 🧑<br>👨 아빠 · 👩 엄마 · 🧑 중1 아들</div></section><div class="posterCaption"><span>👨‍👩‍👦 FAMILY OF 3</span><span>✈️ INCHEON → FUKUOKA</span><span>🚙 YUFUIN · BEPPU ROAD TRIP</span></div><div style="text-align:center;margin:15px 0 8px;font-size:.72rem;font-weight:950;letter-spacing:.18em;color:#76909c">TRIP BOARD · FAMILY OF 3 · FUKUOKA 2026</div><div class="tripDashboard">
 <div class="dayCards">
